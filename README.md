@@ -1,4 +1,3 @@
-
 # Automated Job Hunter
 
 This repository contains a Python script designed to automate the process of scraping job postings for Salesforce Administrator positions from websites like Indeed and LinkedIn. The script supports both email automation to send scraped job listings and an option to run without email automation.
