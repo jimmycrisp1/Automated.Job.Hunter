@@ -61,6 +61,40 @@ This repository contains a set of scripts designed to automate the process of jo
 
 Ensure that your web scraping activities comply with the terms of service of the targeted websites and that the use of automated scripts for job applications is in line with the ethical guidelines and legal regulations of your region.
 
+
+
+< Running Without Email Automation >
+
+If you prefer to run the script without the email automation feature to manually review the scraped job listings, you can do so by following these steps:
+
+1. **Disable Email Feature**:
+   - Open the `scraper.py` file in a text editor.
+   - Locate the section of the code that handles email sending (search for `send_email` function calls).
+   - Comment out or remove the `send_email` function call to prevent the script from attempting to send an email.
+
+   ```python
+   # Comment out the following line or remove it
+   # send_email(file_path=file_path)
+   ```
+
+2. **Output to File**:
+   - Ensure that the script is set to save the scraped job listings to a file such as `jobs.json`. This is already part of the script's functionality.
+   - You can find the relevant code under the function `save_jobs` or similar.
+
+3. **Run the Script**:
+   - With the virtual environment activated and dependencies installed, run the script directly using Python:
+     ```
+     python scraper.py
+     ```
+   - After the script completes its execution, you'll find the `jobs.json` file in the project directory containing the scraped job listings.
+
+4. **Review the Results**:
+   - Open the `jobs.json` file to review the job listings that have been scraped.
+   - The `jobs.json` file will be structured in a readable JSON format, where each job listing is a separate entry with details such as job title, company, location, etc.
+
+By following these steps, you can use the script to scrape job listings and save them locally without sending them via email.
+
+
 ---
 
 Make sure to replace `.env.example` with the actual `.env` filename if it's different in your repository. Additionally, you can adjust any paths or commands if they differ in your environment setup.
