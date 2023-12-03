@@ -14,7 +14,7 @@ This repository contains a Python script designed to automate the process of scr
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/automated-job-hunter.git
+git clone https://github.com/jimmycrisp1/Automated.Job.Hunter.git
 cd automated.job.hunter
 ```
 
