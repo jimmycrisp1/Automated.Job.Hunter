@@ -4,11 +4,6 @@ from bs4 import BeautifulSoup
 import schedule
 import time
 import json
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
 from config_script import *
 
 def setup_driver():
@@ -46,38 +41,14 @@ def scrape_jobs():
     driver.quit()
     return job_data
 
-def send_email(file_path=None, content=None):
-    message = MIMEMultipart()
-    message['From'] = EMAIL_SENDER
-    message['To'] = EMAIL_RECEIVER
-    message['Subject'] = "Daily Job Scraping Results"
-
-    body = content if content else "Please find the attached job scraping results."
-    message.attach(MIMEText(body, 'plain'))
-
-    if file_path:
-        attachment = open(file_path, 'rb')
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload((attachment).read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f"attachment; filename={file_path}")
-        message.attach(part)
-
-    server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-    server.starttls()
-    server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-    server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, message.as_string())
-    server.quit()
-
-def save_and_send_jobs(jobs):
+def save_jobs(jobs):
     file_path = 'jobs.json'
     with open(file_path, 'w') as file:
         json.dump(jobs, file, indent=4)
-    send_email(file_path=file_path)
 
 def scheduled_scraping():
     scraped_jobs = scrape_jobs()
-    save_and_send_jobs(scraped_jobs)
+    save_jobs(scraped_jobs)
 
 schedule.every().day.at(SCHEDULE_TIME).do(scheduled_scraping)
 
